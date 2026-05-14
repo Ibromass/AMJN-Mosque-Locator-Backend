@@ -37,10 +37,11 @@ namespace AMJN_Mosque_Locator.AppDbContext
 
             modelBuilder.Entity<Mosque>()
                 .Property(m => m.ImageUrl)
-                .HasColumnType("json");
+                .HasColumnType("jsonb");
+
+
+        }
 
     }
-
-}
     
 }

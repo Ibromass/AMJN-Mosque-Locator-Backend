@@ -11,13 +11,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<AMJNDbContext>(options => 
-    options.UseMySql(builder.Configuration.GetConnectionString("AMJNDbContext"),
-        new MySqlServerVersion(new Version(8, 0, 34))
-    ));
+builder.Services.AddDbContext<AMJNDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("AMJNDbContext")));
+
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -56,6 +56,12 @@ Env.Load();
 Console.WriteLine("Testing API Key Load...");
 Console.WriteLine($"Key found: {!string.IsNullOrEmpty(Env.GetString("GOOGLE_MAPS_API_KEY"))}");
 
+var jwtTokenKey = builder.Configuration["JwtTokenSettings:TokenKey"];
+if (string.IsNullOrWhiteSpace(jwtTokenKey))
+{
+    throw new InvalidOperationException("JwtTokenSettings:TokenKey is not configured.");
+}
+
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
@@ -65,7 +71,7 @@ builder.Services.AddAuthentication("Bearer")
             ValidateIssuer = false,
             ValidateAudience = false,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("726FEF51-D266-4AEC-A10C-POI78AA6R00JDJ"))
+                Encoding.UTF8.GetBytes(jwtTokenKey))
         };
     });
 
