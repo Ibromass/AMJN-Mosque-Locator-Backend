@@ -1,0 +1,6 @@
+@AMJN_Mosque_Locator_HostAddress = http://localhost:5191
+
+GET {{AMJN_Mosque_Locator_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
