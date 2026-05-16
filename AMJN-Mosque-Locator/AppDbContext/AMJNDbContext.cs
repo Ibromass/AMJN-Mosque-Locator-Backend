@@ -25,7 +25,7 @@ namespace AMJN_Mosque_Locator.AppDbContext
                     Id = adminId,
                     Username = "Admin",
                     Email = "admin@amjn.org",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("AMJNAdmin@123"),
+                    PasswordHash = "$2a$11$wll3su1NBcToAtsSLYHWfeK4DVnb8m.sf9.tNVt4YoBhwASIJegQq",
                     IsActive = true,
                     LastLoginAt = null,
                     DateCreated = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
