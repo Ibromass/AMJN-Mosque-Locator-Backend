@@ -28,8 +28,8 @@ namespace AMJN_Mosque_Locator.AppDbContext
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("AMJNAdmin@123"),
                     IsActive = true,
                     LastLoginAt = null,
-                    DateCreated = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc), // ← fixed date
-                    DateUpdated = DateTime.UtcNow
+                    DateCreated = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    DateUpdated = new DateTime(2026, 5, 14, 14, 34, 5, 193, DateTimeKind.Utc).AddTicks(3980)
                 }
             );
         
