@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseAppHost>false</UseAppHost>
     <RootNamespace>AMJN_Mosque_Locator</RootNamespace>
+    <UserSecretsId>8ed2a017-aee4-4a2c-9a8c-91fe6768ebbd</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
