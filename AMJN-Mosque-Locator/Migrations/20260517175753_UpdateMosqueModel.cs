@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AMJN_Mosque_Locator.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialPostgresCreate : Migration
+    public partial class UpdateMosqueModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,7 +43,7 @@ namespace AMJN_Mosque_Locator.Migrations
                     Contact = table.Column<string>(type: "text", nullable: false),
                     Longitude = table.Column<double>(type: "double precision", nullable: false),
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
-                    ImageUrl = table.Column<List<string>>(type: "jsonb", nullable: false),
+                    ImageUrl = table.Column<string>(type: "jsonb", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
