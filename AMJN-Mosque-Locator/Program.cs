@@ -99,16 +99,17 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AMJNDbContext>();
+
     try
     {
+        // Try to migrate, but don't fail if tables exist
         db.Database.Migrate();
-        Console.WriteLine("Database migration completed successfully.");
+        Console.WriteLine("Database migration completed.");
     }
     catch (Exception ex)
     {
-        Console.WriteLine("Database migration failed:");
-        Console.WriteLine(ex);
-        throw;
+        Console.WriteLine($"Migration warning: {ex.Message}");
+        Console.WriteLine("Continuing with existing database...");
     }
 }
 
