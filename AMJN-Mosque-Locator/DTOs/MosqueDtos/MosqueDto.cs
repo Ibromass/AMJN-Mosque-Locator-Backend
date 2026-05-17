@@ -17,7 +17,7 @@ namespace AMJN_Mosque_Locator.DTOs.MosqueDtos
         public string? Circuit { get; set; }
         public string? Jamaat { get; set; }
         public string? Contact { get; set; }
-        public List<string> ImageUrl { get; set; } = new();
+        public string? ImageUrl { get; set; }
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }

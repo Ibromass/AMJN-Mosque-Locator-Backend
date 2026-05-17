@@ -52,9 +52,6 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-Env.Load();
-Console.WriteLine("Testing API Key Load...");
-Console.WriteLine($"Key found: {!string.IsNullOrEmpty(Env.GetString("GOOGLE_MAPS_API_KEY"))}");
 
 var jwtTokenKey = builder.Configuration["JwtTokenSettings:TokenKey"];
 if (string.IsNullOrWhiteSpace(jwtTokenKey))

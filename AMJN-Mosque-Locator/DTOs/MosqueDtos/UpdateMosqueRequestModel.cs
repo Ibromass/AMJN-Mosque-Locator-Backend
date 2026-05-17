@@ -11,6 +11,6 @@
         public string Contact { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-        public List<string> ImageUrl { get; set; } = new();
+        public string? ImageUrl { get; set; }
     }
 }
