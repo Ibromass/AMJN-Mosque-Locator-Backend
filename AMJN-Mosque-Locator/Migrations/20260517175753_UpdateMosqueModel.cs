@@ -43,7 +43,7 @@ namespace AMJN_Mosque_Locator.Migrations
                     Contact = table.Column<string>(type: "text", nullable: false),
                     Longitude = table.Column<double>(type: "double precision", nullable: false),
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
-                    ImageUrl = table.Column<string>(type: "jsonb", nullable: true),
+                    ImageUrl = table.Column<string>(type: "text", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)

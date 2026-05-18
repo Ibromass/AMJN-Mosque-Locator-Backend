@@ -96,22 +96,22 @@ builder.Services.AddCors(options =>
 });
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AMJNDbContext>();
+//using (var scope = app.Services.CreateScope())
+//{
+//    var db = scope.ServiceProvider.GetRequiredService<AMJNDbContext>();
 
-    try
-    {
-        // Try to migrate, but don't fail if tables exist
-        db.Database.Migrate();
-        Console.WriteLine("Database migration completed.");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Migration warning: {ex.Message}");
-        Console.WriteLine("Continuing with existing database...");
-    }
-}
+//    try
+//    {
+//        // Try to migrate, but don't fail if tables exist
+//        db.Database.Migrate();
+//        Console.WriteLine("Database migration completed.");
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.WriteLine($"Migration warning: {ex.Message}");
+//        Console.WriteLine("Continuing with existing database...");
+//    }
+//}
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
