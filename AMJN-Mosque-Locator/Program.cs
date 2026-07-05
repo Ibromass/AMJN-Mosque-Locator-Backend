@@ -14,7 +14,6 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddDbContext<AMJNDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("AMJNDbContext")));
 
@@ -73,9 +72,7 @@ builder.Services.AddAuthentication("Bearer")
     });
 
 builder.Services.AddAuthorization();
-//builder.Services.AddHttpClient();
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi 
 builder.Services.AddScoped<IMosqueService, MosqueService>();
 builder.Services.AddScoped<IAdminauthService, AdminauthService>();
 builder.Services.AddScoped<IMosqueRepository, MosqueRepository>();
@@ -89,31 +86,35 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin()   // This allows all websites to connect
+        policy.AllowAnyOrigin()  
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
 var app = builder.Build();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var db = scope.ServiceProvider.GetRequiredService<AMJNDbContext>();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+      
+        var context = services.GetRequiredService<AMJNDbContext>();
 
-//    try
-//    {
-//        // Try to migrate, but don't fail if tables exist
-//        db.Database.Migrate();
-//        Console.WriteLine("Database migration completed.");
-//    }
-//    catch (Exception ex)
-//    {
-//        Console.WriteLine($"Migration warning: {ex.Message}");
-//        Console.WriteLine("Continuing with existing database...");
-//    }
-//}
-
-// Configure the HTTP request pipeline.
+      
+        if (context.Database.GetPendingMigrations().Any())
+        {
+            System.Console.WriteLine("Applying pending database migrations to Render...");
+            Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.Migrate(context.Database);
+            System.Console.WriteLine("Database migrations successfully applied!");
+        }
+    }
+    catch (System.Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while automatically migrating the database on Render.");
+    }
+}
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
@@ -121,8 +122,6 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = string.Empty;
 });
 
-
-//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCors();
 app.UseAuthentication();

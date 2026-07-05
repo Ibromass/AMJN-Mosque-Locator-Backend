@@ -16,7 +16,6 @@ namespace AMJN_Mosque_Locator.Controllers
             _authService = authService;
         }
 
-        // ── POST /api/adminauth/login ──────────────────────
         [HttpPost("login")]
         public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestModel dto)
         {

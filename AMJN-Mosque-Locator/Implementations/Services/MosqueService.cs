@@ -26,12 +26,12 @@ namespace AMJN_Mosque_Locator.Implementations.Services
             var mosque = new Mosque
             {
                 Name = dto.Name,
-                Address = dto.Address,
-                State = dto.State,
-                Region = dto.Region,
+                Address  = dto.Address = string.Empty,
+                State = dto.State = string.Empty,
+                Region = dto.Region = string.Empty,
                 Circuit = dto.Circuit,
-                Jamaat = dto.Jamaat,
-                Contact = dto.Contact,
+                Jamaat = dto.Jamaat = string.Empty,
+                Contact = dto.Contact = string.Empty,
                 ImageUrl = dto.ImageUrl,
                 Latitude = dto.Latitude,
                 Longitude = dto.Longitude,

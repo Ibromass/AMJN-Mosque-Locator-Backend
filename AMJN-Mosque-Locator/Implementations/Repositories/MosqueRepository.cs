@@ -55,7 +55,6 @@ namespace AMJN_Mosque_Locator.Implementations.Repositories
 
         public async Task<IEnumerable<(Mosque Mosque, double Distance)>> GetNearbyWithDistanceAsync(NearbySearchDto query)
         {
-            // Bounding box filter (fast DB query)
             var latDelta = query.RadiusKm / 111.0;
             var lngDelta = query.RadiusKm / (111.0 * Math.Cos(GeoService.ToRadians(query.Latitude)));
 
@@ -64,11 +63,10 @@ namespace AMJN_Mosque_Locator.Implementations.Repositories
                 .Where(m => m.IsActive)
                 .Where(m => m.Latitude >= query.Latitude - latDelta && m.Latitude <= query.Latitude + latDelta)
                 .Where(m => m.Longitude >= query.Longitude - lngDelta && m.Longitude <= query.Longitude + lngDelta)
-                //.Where(m => m.Distance <= query.RadiusKm)
+                
 
                 .ToListAsync();
 
-            // Calculate distance once, return with mosque
             return candidates
                 .Select(m => new
                 {
@@ -87,7 +85,7 @@ namespace AMJN_Mosque_Locator.Implementations.Repositories
         {
             var query = _context.Mosques
                 .AsNoTracking()
-                .Where(m => m.IsActive)  // Only active mosques
+                .Where(m => m.IsActive)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(state))
@@ -102,7 +100,6 @@ namespace AMJN_Mosque_Locator.Implementations.Repositories
             if (!string.IsNullOrWhiteSpace(jamaat))
                 query = query.Where(m => m.Jamaat.ToLower().Contains(jamaat.ToLower()));
 
-            // ✅ FIX: Order by name for consistent results
             return await query
                 .OrderBy(m => m.State)
                 .ThenBy(m => m.Region)

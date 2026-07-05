@@ -19,12 +19,6 @@ namespace AMJN_Mosque_Locator.Implementations.Services
             _repository = repository;
             _configuration = configuration;
         }
-
-        //public async Task<LoginResponseDto> LoginAsyn(LoginRequestModel dto)
-        //{
-          
-        //}
-
         public async Task<LoginResponseDto> LoginAsync(LoginRequestModel dto)
         {
             var admin = await _repository.GetByUsernameAsync(dto.UserName);
@@ -32,17 +26,16 @@ namespace AMJN_Mosque_Locator.Implementations.Services
             if (admin == null)
                 return null;
 
-            // ── Step 2: Verify password ───────────────────
             bool isPasswordValid = BCrypt.Net.BCrypt.Verify(dto.Password, admin.PasswordHash);
 
             if (!isPasswordValid)
                 return null;
 
-            // ── Step 3: Update last login time ────────────
+           
             admin.LastLoginAt = DateTime.UtcNow;
             await _repository.UpdateLastLoginAsync(admin);
 
-            // ── Step 4: Generate JWT token ─────────────────
+
             var token = GenerateJwtToken(admin.Username, admin.Email);
 
             return new LoginResponseDto
@@ -52,14 +45,14 @@ namespace AMJN_Mosque_Locator.Implementations.Services
             };
         }
 
-        // ── JWT Token Generator ───────────────────────────
+        
         private (string Token, DateTime Expiration) GenerateJwtToken(
       string username, string email)
         {
-            // FIX: Use JwtTokenSettings (not Jwt) to match your appsettings.json
+          
             var tokenKey = _configuration["JwtTokenSettings:TokenKey"];
 
-            // Handle null email
+            
             email = email ?? username;
 
             if (string.IsNullOrEmpty(tokenKey))

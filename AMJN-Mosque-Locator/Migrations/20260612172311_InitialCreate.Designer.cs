@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AMJN_Mosque_Locator.Migrations
 {
     [DbContext(typeof(AMJNDbContext))]
-    [Migration("20260517175753_UpdateMosqueModel")]
-    partial class UpdateMosqueModel
+    [Migration("20260612172311_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

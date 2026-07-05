@@ -17,8 +17,7 @@ namespace AMJN_Mosque_Locator.Controllers
         {
             _service = service;
         }
-        //[Authorize]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MosqueDto>>> GetAll()
@@ -54,7 +53,6 @@ namespace AMJN_Mosque_Locator.Controllers
 
             if (!mosques.Any())
             {
-                // No mosques found - return 200 with message
                 return Ok(new
                 {
                     message = "No Ahmadiyya mosques found near your location.",
@@ -62,7 +60,6 @@ namespace AMJN_Mosque_Locator.Controllers
                 });
             }
 
-            // Mosques found - return 200 with data (NOT NoContent!)
             return Ok(new
             {
                 message = $"{mosques.Count()} mosque(s) found",
