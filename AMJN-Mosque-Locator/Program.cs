@@ -77,6 +77,8 @@ builder.Services.AddScoped<IMosqueService, MosqueService>();
 builder.Services.AddScoped<IAdminauthService, AdminauthService>();
 builder.Services.AddScoped<IMosqueRepository, MosqueRepository>();
 builder.Services.AddScoped<IAdminauthRepository, AdminauthRepository>();
+builder.Services.AddScoped<INewsRepository, NewsRepository>();
+builder.Services.AddScoped<INewsService, NewsService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -15,6 +15,7 @@ namespace AMJN_Mosque_Locator.AppDbContext
          
          public DbSet<Mosque> Mosques { get; set; }
          public DbSet<Admin> Admins { get; set; }
+         public DbSet<NewsItem> NewsItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var adminId = new Guid("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
