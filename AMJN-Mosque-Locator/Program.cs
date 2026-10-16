@@ -15,7 +15,15 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AMJNDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("AMJNDbContext")));
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("AMJNDbContext"),
+        npgsqlOptions => 
+        {
+            npgsqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 3,
+                maxRetryDelay: TimeSpan.FromSeconds(10),
+                errorCodesToAdd: null);
+        }));
 
 
 builder.Services.AddSwaggerGen(c =>
